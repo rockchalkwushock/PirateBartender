@@ -56,9 +56,17 @@ function Ingredients() {
 /* ---------- Prototypes ---------- */
 // ###################################
 
-/* ---------- a)  ---------- */
+/* ---------- a) createDrink ---------- */
 
+Ingredients.prototype.createDrink = function() {
+  var order = '';
+  for (var key in Ingredients) {
+    var random = Math.floor((Math.random() * 4));
+    if (!this.propertyIsEnumerable(key)) {
 
+    }
+  }
+};
 
 /* ---------- b)  ---------- */
 
@@ -85,7 +93,8 @@ function initLoad() {
   $('#order_form').submit(function(event) {
     event.preventDefault();
 
-    $('.results').empty();
+    $('.results').hide();
+
   });
 }
 
