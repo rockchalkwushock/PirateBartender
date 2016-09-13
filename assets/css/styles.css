@@ -47,8 +47,9 @@ label {
 }
 .results {
   height: 30%;
-  display: none;
-}
-.results h2 {
   text-align: center;
+}
+.order {
+  list-style: none;
+  text-align: justify;
 }

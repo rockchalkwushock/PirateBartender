@@ -34,6 +34,7 @@ var usersChoices = [];
 var myBartender;
 var myPantry;
 var randomDrink;
+var key;
 
 // #####################################
 /* ---------- Constructors ---------- */
@@ -66,7 +67,7 @@ function Pantry(ingredients) {
 
 Bartender.prototype.createDrink = function(patronChoices) {
   var drink = [];
-  for (var key in patronChoices) {
+  for (key in patronChoices) {
     if (patronChoices[key]) {
       var match = [];
       for (var i = 0; i < this.pantry.ingredients.length; i++) {
@@ -89,17 +90,7 @@ Bartender.prototype.createDrink = function(patronChoices) {
 /* ---------- Objects ---------- */
 // ################################
 
-/* ---------- a) myPantry ---------- */
-
-myPantry = new Pantry(ingredients);
-// myPantry = this.ingredients (Pantry).
-
-/* ---------- b) myBartender ---------- */
-
-myBartender = new Bartender(myPantry);
-// myBartender = this.pantry (Bartender) & this.ingredients (Pantry).
-
-/* ---------- c) myBartender ---------- */
+/* ---------- a) ingredients[] ---------- */
 
 ingredients = [
   new Ingredient('Glug of rum', 'strong'),
@@ -119,6 +110,18 @@ ingredients = [
   new Ingredient('Cherry on top', 'fruity'),
 ];
 
+/* ---------- b) myPantry ---------- */
+
+myPantry = new Pantry(ingredients);
+// myPantry = this.ingredients (Pantry).
+
+/* ---------- c) myBartender ---------- */
+
+myBartender = new Bartender(myPantry);
+// myBartender = this.pantry (Bartender) & this.ingredients (Pantry).
+
+
+
 // ########################################
 /* ---------- Child Functions ---------- */
 // ########################################
@@ -126,26 +129,27 @@ ingredients = [
 /* ---------- a) initLoad ---------- */
 function initLoad()
 {
+  $('.results').hide();
   console.log('page load');
   $('#order_form').submit(function(event) {
 
     event.preventDefault();
 
     var pref = {
-      'strong': $('#strong').find(':selected').val(),
-      'salty': $('#salty').find(':selected').val(),
-      'bitter': $('#bitter').find(':selected').val(),
-      'sweet': $('#sweet').find(':selected').val(),
-      'fruity': $('#fruity').find(':selected').val()
+      'strong': $('#strong').find(':selected').val() === 'Yes',
+      'salty': $('#salty').find(':selected').val() === 'Yes',
+      'bitter': $('#bitter').find(':selected').val() === 'Yes',
+      'sweet': $('#sweet').find(':selected').val() === 'Yes',
+      'fruity': $('#fruity').find(':selected').val() === 'Yes'
     };
-    console.log(pref);
-    console.log(myBartender);
-    randomDrink = myBartender.createDrink(pref);
 
+    validateForm(pref);
 
-    console.log(randomDrink);
-
-
+    for (var i = 0; i < randomDrink.length; i++) {
+      console.log(randomDrink[i].item);
+      $('.drink ul').append('<li>' + randomDrink[i].item + '</li>');
+    }
+    $('.results').show();
   });
 }
 
@@ -161,7 +165,16 @@ function random(min, max) {
 
 /* ---------- a)  ---------- */
 
+function validateForm(pref) {
+  var emptyFields = pref[key].filter(function() {return this.value === 'null';});
 
+  if (emptyFields.length) {
+    alert('You must choose at least one option');
+  }
+  else {
+    randomDrink = myBartender.createDrink(pref);
+  }
+}
 
 /* ---------- b)  ---------- */
 
