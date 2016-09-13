@@ -1,0 +1,54 @@
+/* Base Line CSS */
+
+
+* {
+  box-sizing: border-box;
+}
+html, body, .wrapper {
+  height: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  margin: 0 auto;
+  padding: 0;
+}
+.header {
+  height: 10%;
+  text-align: center;
+}
+.form {
+  height: 60%;
+  margin: 0 auto;
+}
+.form h2 {
+  text-align: center;
+}
+.q_list {
+  text-align: center;
+}
+form {
+  display: block;
+  padding: 0;
+  text-align: left;
+}
+.form-group {
+  margin-bottom: 0;
+}
+label {
+  display: inline-block;
+}
+.select {
+  display: inline-block;
+}
+.submit-btn {
+  margin-bottom: 1em;
+}
+.submit-btn:hover {
+  background-color: yellow;
+}
+.results {
+  height: 30%;
+  display: none;
+}
+.results h2 {
+  text-align: center;
+}
