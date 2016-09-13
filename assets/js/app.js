@@ -4,17 +4,19 @@
 *	1)	Initialization of Variables
 *     a)  Global
 *	2)	Constructors
-*     a) Ingredients( )
-*     b)
+*     a) Bartender( )
+*     b) Ingredient( )
+*     c) Pantry( )
 *	3)	Prototypes
-*     a)
+*     a) createDrink( )
 *     b)
 *	4)	Objects
-*     a)
-*     b)
+*     a) myPantry
+*     b) myBartender
+*     c) ingredients[]
 * 5)  Child Functions
 *     a) initLoad( )
-*     b)
+*     b) random( )
 * 6)  Validation Checks
 *     a)
 *     b)
@@ -27,30 +29,34 @@
 
 /* ---------- a) Global ---------- */
 
-
-
-/* ---------- b) Local ---------- */
-
-
+var ingredients;
+var usersChoices = [];
+var myBartender;
+var myPantry;
+var randomDrink;
 
 // #####################################
 /* ---------- Constructors ---------- */
 // #####################################
 
-/* ---------- a) Ingredients ---------- */
+/* ---------- a) Bartender ---------- */
 
-function Ingredients() {
-    this.strong = ["glug of rum", "slug of whiskey", "splash of gin", "shot of tequila"];
-    this.salty = ["olive on stick", "eye of newt", "rim of salt", "rasher of bacon"];
-    this.bitter = ["shake of bitters", "splash of tonic", "twist of lemon", "dash of tang"];
-    this.sweet = ["cube of sugar", "spoonful of honey", "splash of cola", "sprinkle of cinnamon"];
-    this.fruity = ["slice of orange", "dash of cassis", "sack of cherries", "swirl of cream"];
-    this.spicy = ["shake of paprika", "slice of jalepeno", "squirt of siracha", "grind of ginger"];
+function Bartender(pantry) {
+  this.pantry = pantry;
 }
 
-/* ---------- b)  ---------- */
+/* ---------- b) Ingredient ---------- */
 
+function Ingredient(item, preference) {
+  this.item = item;
+  this.preference = preference;
+}
 
+/* ---------- d) Pantry ---------- */
+
+function Pantry(ingredients) {
+  this.ingredients = ingredients;
+}
 
 // ###################################
 /* ---------- Prototypes ---------- */
@@ -58,14 +64,21 @@ function Ingredients() {
 
 /* ---------- a) createDrink ---------- */
 
-Ingredients.prototype.createDrink = function() {
-  var order = '';
-  for (var key in Ingredients) {
-    var random = Math.floor((Math.random() * 4));
-    if (!this.propertyIsEnumerable(key)) {
-
+Bartender.prototype.createDrink = function(patronChoices) {
+  var drink = [];
+  for (var key in patronChoices) {
+    if (patronChoices[key]) {
+      var match = [];
+      for (var i = 0; i < this.pantry.ingredients.length; i++) {
+        if (this.pantry.ingredients[i].preference == key) {
+          match.push(this.pantry.ingredients[i]);
+        }
+      }
+      var num = random(0, 2);
+      drink.push(match[num]);
     }
   }
+  return drink;
 };
 
 /* ---------- b)  ---------- */
@@ -76,31 +89,71 @@ Ingredients.prototype.createDrink = function() {
 /* ---------- Objects ---------- */
 // ################################
 
-/* ---------- a)  ---------- */
+/* ---------- a) myPantry ---------- */
 
+myPantry = new Pantry(ingredients);
+// myPantry = this.ingredients (Pantry).
 
+/* ---------- b) myBartender ---------- */
 
-/* ---------- b)  ---------- */
+myBartender = new Bartender(myPantry);
+// myBartender = this.pantry (Bartender) & this.ingredients (Pantry).
 
+/* ---------- c) myBartender ---------- */
 
+ingredients = [
+  new Ingredient('Glug of rum', 'strong'),
+  new Ingredient('Slug of whiskey', 'strong'),
+  new Ingredient('Splash of gin', 'strong'),
+  new Ingredient('Olive on a stick', 'salty'),
+  new Ingredient('Salt-dusted rim', 'salty'),
+  new Ingredient('Sasher of bacon', 'salty'),
+  new Ingredient('Shake of bitters', 'bitter'),
+  new Ingredient('Splash of tonic', 'bitter'),
+  new Ingredient('Twist of lemon peel', 'bitter'),
+  new Ingredient('Sugar cube', 'sweet'),
+  new Ingredient('Spoonful of honey', 'sweet'),
+  new Ingredient('Splash of cola', 'sweet'),
+  new Ingredient('Slice of Orange', 'fruity'),
+  new Ingredient('Dash of cassis', 'fruity'),
+  new Ingredient('Cherry on top', 'fruity'),
+];
 
 // ########################################
 /* ---------- Child Functions ---------- */
 // ########################################
 
 /* ---------- a) initLoad ---------- */
-function initLoad() {
+function initLoad()
+{
+  console.log('page load');
   $('#order_form').submit(function(event) {
+
     event.preventDefault();
 
-    $('.results').hide();
+    var pref = {
+      'strong': $('#strong').find(':selected').val(),
+      'salty': $('#salty').find(':selected').val(),
+      'bitter': $('#bitter').find(':selected').val(),
+      'sweet': $('#sweet').find(':selected').val(),
+      'fruity': $('#fruity').find(':selected').val()
+    };
+    console.log(pref);
+    console.log(myBartender);
+    randomDrink = myBartender.createDrink(pref);
+
+
+    console.log(randomDrink);
+
 
   });
 }
 
-/* ---------- b)  ---------- */
+/* ---------- b) random ---------- */
 
-
+function random(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
 
 // ##########################################
 /* ---------- Validation Checks ---------- */
