@@ -1,33 +1,5 @@
-// my Object
-var pref = {
-  'strong': $('#strong').find(':selected').val() === 'Yes',
-  'salty': $('#salty').find(':selected').val() === 'Yes',
-  'bitter': $('#bitter').find(':selected').val() === 'Yes',
-  'sweet': $('#sweet').find(':selected').val() === 'Yes',
-  'fruity': $('#fruity').find(':selected').val() === 'Yes'
-};
 
-// my validation code
-// only checking if all inputs read 'false'
-function validateInputs(pref) {
-  var emptyFields = _.filter(pref, function(value, key) {
-    if (emptyFields.key === false) {
-      alert('You must select at least one option.');
-    } else {
-      // run program
-      randomDrink = myBartender.createDrink(pref);
-    }
-  });
-}
-
-if (pref.strong === false) {
-  alert('You must choose a liquor!');
-} else {
-
-}
-
-//  3#####################
-
+// Original Code
 for (var key in patronChoices) {
   if (patronChoices[key]) {
     var match = [];
@@ -41,6 +13,23 @@ for (var key in patronChoices) {
   }
 }
 
-_.each(this.pantry.ingredients, function() {
-  
-});
+// First For Loop
+_.each(patronChoices, callback);
+
+var callback = function(value, key, patronChoices) {
+  if (key) {
+    var match = [];
+  }
+};
+
+// Second For Loop code
+var pantry = this.pantry.ingredients;
+
+var callback2 = function (ingredient, index, pantry) {
+  console.log('ingredient: ' + ingredient);
+  if (ingredient.preference == key) {
+    match.push(ingredient);
+  }
+};
+
+_.each(pantry, callback2);

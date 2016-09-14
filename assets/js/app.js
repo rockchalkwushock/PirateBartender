@@ -152,28 +152,14 @@ function initLoad()
 /* ---------- a) validateInputs ---------- */
 
 function validateInputs(pref) {
-  var emptyFields = _.filter(pref, function(value, key) {
-    if (emptyFields.key === false) {
-      alert('You must select at least one option.');
-    } else {
-      // run program
-      randomDrink = myBartender.createDrink(pref);
-    }
-  });
+
+  if (_.isEmpty(_.compact(_.values(pref)))) {
+    alert('You must choose at least one selection.');
+  } else {
+    randomDrink = myBartender.createDrink(pref);
+  }
 }
-//#################
-// var thing = {
-//   "a": 123,
-//   "b": 456,
-//   "abc": 6789
-// };
-//
-// var result = _.pick(thing, function(value, key) {
-//   return _.startsWith(key, "a");
-// });
-//
-// console.log(result.abc) // 6789
-// console.log(result.b)   // undefined
+
 
 
 
