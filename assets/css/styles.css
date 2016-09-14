@@ -39,8 +39,8 @@ label {
 .select {
   display: inline-block;
 }
-.submit-btn {
-  margin-bottom: 1em;
+form > button {
+  text-align: center;
 }
 .submit-btn:hover {
   background-color: yellow;
