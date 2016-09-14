@@ -15,6 +15,7 @@
 *     c) ingredients[]
 * 5)  Child Functions
 *     a) initLoad( )
+*     b) newDrink( )
 * 6)  Validation Checks
 *     a)
 * 7)  App.js Execution
@@ -28,7 +29,6 @@
 /* ---------- a) Global ---------- */
 
 var ingredients;
-var usersChoices = [];
 var myBartender;
 var myPantry;
 var randomDrink;
@@ -135,13 +135,19 @@ function initLoad()
     };
 
     validateInputs(pref);
+    newDrink();
+  });
+}
 
-    randomDrink = myBartender.createDrink(pref);
+/* ---------- b) newDrink ---------- */
 
-    for (var i = 0; i < randomDrink.length; i++) {
-      $('.drink ul').append('<li>' + randomDrink[i].item + '</li>');
-    }
-    $('.results').show();
+function newDrink() {
+	$('.pour-btn').click(function() {
+    $('.order').empty();
+    $('.results').hide();
+    drink = [];
+    match = [];
+    $(".select").val('Null');
   });
 }
 
@@ -157,6 +163,11 @@ function validateInputs(pref) {
     alert('You must choose at least one selection.');
   } else {
     randomDrink = myBartender.createDrink(pref);
+
+    for (var i = 0; i < randomDrink.length; i++) {
+      $('.drink ul').append('<li>' + randomDrink[i].item + '</li>');
+    }
+    $('.results').show();
   }
 }
 

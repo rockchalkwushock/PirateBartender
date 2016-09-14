@@ -45,9 +45,13 @@ form > button {
 .submit-btn:hover {
   background-color: yellow;
 }
+.btn-container {
+  text-align: center;
+}
 .results {
   height: 30%;
   text-align: center;
+  display: inline;
 }
 .order {
   list-style: none;
